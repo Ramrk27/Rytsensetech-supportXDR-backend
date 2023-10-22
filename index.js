@@ -5,16 +5,14 @@ const fileUpload = require("express-fileupload");
 const con = require("./db/config");
 const sgMail = require("@sendgrid/mail");
 const Jwt = require("jsonwebtoken");
-const jwtkey = "extension-tella";
+const jwtkey = process.env.JWT_KEY;
 const app = express();
-const dotenv = require("dotenv")
-dotenv.config()
-
+const dotenv = require("dotenv");
+dotenv.config();
 
 app.use(express.json());
 app.use(fileUpload());
 app.use(cors());
-
 
 // Configure SendGrid with your API key
 const sendgridAPIKey =
@@ -810,10 +808,9 @@ app.post("/editLogoWeb", verifyToken, async (req, resp) => {
   // const user_id = req.user.id;
   // const currUserId = data.user_id;
   // const websiteId = data.id
-  console.log('gggggg');
+  console.log("gggggg");
 
-  const formData = req.body.formData
-
+  const formData = req.body.formData;
 
   if (user_id != data.user_id) {
     resp
@@ -2085,7 +2082,6 @@ function verifyToken(req, resp, next) {
     resp.status(403).send({ result: "Please add token with header" });
   }
 }
-
 
 const PORT = process.env.PORT || 5000;
 
